@@ -1,21 +1,23 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { PostContext } from '../../store/FirebaseContext';
 import './View.css';
 function View() {
+  const { postDetails } = useContext(PostContext);
+  console.log(postDetails);
   return (
     <div className="viewParentDiv">
       <div className="imageShowDiv">
         <img
-          src="../../../Images/R15V3.jpg"
+          src={postDetails.url}
           alt=""
         />
       </div>
       <div className="rightSection">
         <div className="productDetails">
-          <p>&#x20B9; 250000 </p>
-          <span>YAMAHA R15V3</span>
-          <p>Two Wheeler</p>
-          <span>Tue May 04 2021</span>
+          <p>&#x20B9; {postDetails.price} </p>
+          <span>{postDetails.name}</span>
+          <p>{postDetails.category}</p>
+          <span>{postDetails.createdAt}</span>
         </div>
         <div className="contactDetails">
           <p>Seller details</p>
