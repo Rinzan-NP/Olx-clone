@@ -1,15 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import './Header.css';
-import OlxLogo from '../../assets/OlxLogo';
-import Search from '../../assets/Search';
-import Arrow from '../../assets/Arrow';
-import SellButton from '../../assets/SellButton';
-import SellButtonPlus from '../../assets/SellButtonPlus';
-import { AuthContext } from '../../store/FirebaseContext';
+import "./Header.css";
+import OlxLogo from "../../assets/OlxLogo";
+import Search from "../../assets/Search";
+import Arrow from "../../assets/Arrow";
+import SellButton from "../../assets/SellButton";
+import SellButtonPlus from "../../assets/SellButtonPlus";
+import { AuthContext, FirebaseContext } from "../../store/FirebaseContext";
+import { useNavigate } from "react-router-dom";
 function Header() {
-
-  const {user} = useContext(AuthContext)
+  const firebase = useContext(FirebaseContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    firebase.auth().signOut();
+    navigate("/");
+  };
+  const handleSell = () => {
+    navigate('/create')
+  }
+  const handleLogin = () => {
+    if (user) {
+    }else{
+      navigate('/login')
+    }
+  }
+  const { user } = useContext(AuthContext);
+  
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -37,15 +53,15 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-            <span>{ user? user.displayName:"Login"}</span> 
+          <span onClick={handleLogin}>{user ? user.displayName : "Login"}</span>
           <hr />
         </div>
-
+        {user && <span onClick={handleLogout}>Logout</span>}
         <div className="sellMenu">
           <SellButton></SellButton>
-          <div className="sellMenuContent">
+          <div className="sellMenuContent" onClick={handleSell}>
             <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
+            <span >SELL</span>
           </div>
         </div>
       </div>

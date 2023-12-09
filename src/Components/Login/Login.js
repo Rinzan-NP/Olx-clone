@@ -8,6 +8,7 @@ function Login() {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const {firebase}=useContext(FirebaseContext)
+  console.log(firebase)
   const navigate = useNavigate()
   const submitLogin=(e)=>{
     e.preventDefault()
