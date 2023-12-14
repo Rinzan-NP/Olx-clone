@@ -15,6 +15,11 @@ export default function Signup() {
   const { firebase } = useContext(FirebaseContext);
   const submitForm = (e) => {
     e.preventDefault();
+    if (!username || !email || !number || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+    else{
     setLoading(true);
     firebase
       .auth()
@@ -50,7 +55,7 @@ export default function Signup() {
         alert("Error creating user:", error);
         setLoading(false);
       });
-  };
+  }}
 
   return (
     <div>

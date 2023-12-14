@@ -18,6 +18,23 @@ const Create = () => {
   const date=new Date()
 
   const submitData=(e)=>{
+
+    //form validation
+    if(!name||!category||!price||!image){
+      alert('Please fill in all fields')
+      return
+    }
+    //image validation
+    if(image.size>1000000){
+      alert('Image size must be less than 1MB')
+      return
+    }
+    //image validation
+    if(image.type!=='image/jpeg'&&image.type!=='image/png'&&image.type!=='image/jpg'&&image.type!=='image/gif'&&image.type!=='image/bmp'){
+      alert('Image type must be jpg,png,jpeg,gif,bmp')
+      return
+    }
+    else{
       firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
         ref.getDownloadURL().then((url)=>{
           console.log(url);
@@ -32,7 +49,7 @@ const Create = () => {
           navigate('/')
         })
       })
-  }
+  }}
   return (
     <Fragment>
       <Header />

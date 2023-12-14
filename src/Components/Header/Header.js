@@ -13,6 +13,7 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = () => {
     firebase.auth().signOut();
+    alert("You have lgged out")
     navigate("/");
   };
   const handleSell = () => {
